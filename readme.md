@@ -14,7 +14,7 @@ real-time.
 Secara umum prosedur untuk menjalankan program ini yaitu:
 
 1. Clone repositori ini.
-2. Upload `natsupyhw.ino` ke board Arduino dengan mengikuti instruksi
+2. Upload `natsupyhw_dht22.ino` atau `natsupyhw_ds18b20.ino` ke board Arduino dengan mengikuti instruksi
    konfigurasi pin seperti yang terdapat pada file tersebut.
 3. Buat environment baru menggunakan `conda` atau `pip` menggunakan file
    `requirements.txt` atau `conda.yml`.
