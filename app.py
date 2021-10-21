@@ -242,15 +242,16 @@ class NatsuPyApp(tk.Frame):
     elif self.data_measured[0] != 0 and not self.kf_initialized:
       # initial data has been collected, run EM algorithm
       print('Estimating Kalman parameters...')
-      self.kf = self.kf.em(np.array(self.data_measured))
+      current_observations = self.data_measured.copy() + [measured_with_noise]
+      self.kf = self.kf.em(np.array(current_observations))
       self.kf_initialized = True
 
       # print parameters
       pprint(vars(self.kf))
 
       # estimate using Kalman filter
-      means, covariances = self.kf.filter(np.array([measured_with_noise]))
-      estimated = means.item(0)
+      means, covariances = self.kf.filter(np.array(current_observations))
+      estimated = means[-1]
       self.kf_last_means = means
       self.kf_last_covariances = covariances
     else:
