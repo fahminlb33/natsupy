@@ -20,6 +20,14 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 
+def isfloat(value):
+  try:
+    float(value)
+    return True
+  except ValueError:
+    return False
+
+
 class NatsuCsvWriter():
   file: io.TextIOWrapper = None
   writer: '_csv._writer' = None
@@ -71,10 +79,16 @@ class NatsuSerialReader():
     while (not self.thread_stop_signal):
       try:
         # read single line from serial
-        self.serial_data = self.serial_port.readline().decode('ascii')
+        self.serial_data = self.serial_port.readline() \
+            .decode('ascii').strip('\r').strip('\n')
 
         # check null or whitespace
         if not self.serial_data or self.serial_data.isspace():
+          continue
+
+        # print error from serial
+        if not isfloat(self.serial_data):
+          print(self.serial_data)
           continue
 
         # got valid data, execute the callback
