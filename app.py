@@ -247,7 +247,7 @@ class NatsuPyApp(tk.Frame):
 
   def update_plot(self, measured) -> None:
     estimated = 0.0
-    measured_with_noise = measured + self.prng.uniform(-2, 2)
+    measured_with_noise = measured + self.prng.uniform(-1, 1)
 
     # based on the data we have,
     if self.data_measured[0] == 0:
